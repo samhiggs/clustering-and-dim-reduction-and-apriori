@@ -108,7 +108,6 @@ def generate_graph(data):
 def prune_itemset(hashmap, itemset):
     size = len(list(hashmap.keys())[0])
     prune_itemset = {e for k in hashmap.keys() for e in k}
-    print(prune_itemset)
     return [[e for e in i if e in prune_itemset] for i in itemset]
     
 
@@ -130,7 +129,7 @@ def shingle_hash(itemset, k, support=500):
             key = c
             if key not in k_freq_hashed:
                 k_freq_hashed[key] = 1
-            el  se:
+            else:
                 k_freq_hashed[key] += 1
             if key not in to_keep and k_freq_hashed[key] > support:
                 to_keep.add(key)
@@ -155,7 +154,6 @@ for i in range(1,20):
     encoded_hash = shingle_hash(updated_itemset, i, support)
     # graph = generate_graph(encoded_hash)
     # ipd.Image(graph.create_png())
-    
     if len(list(encoded_hash.keys())) <= 1:
         break
     updated_itemset = prune_itemset(encoded_hash, updated_itemset)
